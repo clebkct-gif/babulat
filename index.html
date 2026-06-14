@@ -2,7 +2,7 @@
 <html lang="pt-BR"> 
 <head> 
  <meta charset="UTF-8"> 
- <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
  <title>Placar Tênis - Edição Definitiva Pro</title> 
  <link rel="manifest" href="manifest.json">
  <meta name="theme-color" content="#ffd700">
@@ -10,6 +10,7 @@
  <style> 
  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial Black', Gadget, sans-serif; } 
  body, html { width: 100%; height: 100%; background-color: #000; color: #fff; overflow: hidden; } 
+ 
  /* --- TELA DE ABERTURA ANIMADA --- */ 
  #intro-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; background: #000; position: absolute; z-index: 20; overflow: hidden; } 
  .universe-container { position: relative; width: 300px; height: 300px; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; perspective: 1000px; } 
@@ -25,48 +26,67 @@
  @keyframes orbitAnim2 { 0% { transform: rotateZ(360deg); } 100% { transform: rotateZ(0deg); } } 
  .btn-babulat { padding: 16px 36px; background: transparent; border: 3px solid #ccff00; color: #ccff00; font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; border-radius: 50px; cursor: pointer; box-shadow: 0 0 15px rgba(204, 255, 0, 0.4); transition: all 0.3s ease; position: relative; z-index: 5; } 
  .btn-babulat:hover { background: #ccff00; color: #000; box-shadow: 0 0 30px #ccff00; transform: scale(1.05); } 
+ 
  /* --- TELA INICIAL DE CONFIGURAÇÃO --- */ 
- #setup-screen { display: none; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%; height: 100%; background: #222; padding: 20px; overflow-y: auto; position: absolute; z-index: 10; } 
- .setup-container { background: #222; width: 100%; max-width: 800px; padding: 10px; } 
- .header-controls { width: 100%; max-width: 800px; display: flex; flex-direction: row; gap: 6px; margin-bottom: 20px; z-index: 12; } 
- .btn-ui-header { flex: 1; border: none; color: #fff; padding: 14px 4px; border-radius: 8px; cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.3); text-align: center; } 
- .btn-hist { background: linear-gradient(135deg, #0055ff, #0033aa); border-bottom: 3px solid #002277; } 
- .btn-rank { background: linear-gradient(135deg, #ff9900, #cc6600); border-bottom: 3px solid #994400; } 
- .btn-export { background: linear-gradient(135deg, #00aa50, #007730); border-bottom: 3px solid #005520; } 
- .btn-reset { background: linear-gradient(135deg, #ff3333, #bb1111); border-bottom: 3px solid #770000; } 
- .btn-full { background: linear-gradient(135deg, #666666, #444444); border-bottom: 3px solid #222222; } 
- .btn-ui-header:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(255,255,255,0.1); filter: brightness(1.2); } 
- .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } 
- .form-group { margin-bottom: 5px; position: relative; } 
+ #setup-screen { display: none; flex-direction: column; width: 100%; height: 100%; background: #222; padding: 6px 4px; overflow-y: auto; position: absolute; z-index: 10; justify-content: space-between; } 
+ .setup-container { background: #222; width: 100%; max-width: 100%; padding: 2px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; } 
+ .header-controls { width: 100%; display: flex; flex-direction: row; gap: 4px; margin-bottom: 6px; z-index: 12; } 
+ .btn-ui-header { flex: 1; border: none; color: #fff; padding: 10px 2px; border-radius: 6px; cursor: pointer; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: 0 3px 5px rgba(0,0,0,0.3); text-align: center; } 
+ .btn-hist { background: linear-gradient(135deg, #0055ff, #0033aa); border-bottom: 2px solid #002277; } 
+ .btn-rank { background: linear-gradient(135deg, #ff9900, #cc6600); border-bottom: 2px solid #994400; } 
+ .btn-export { background: linear-gradient(135deg, #00aa50, #007730); border-bottom: 2px solid #005520; } 
+ .btn-reset { background: linear-gradient(135deg, #ff3333, #bb1111); border-bottom: 2px solid #770000; } 
+ .btn-full { background: linear-gradient(135deg, #666666, #444444); border-bottom: 2px solid #222222; } 
+ .btn-ui-header:hover { transform: translateY(-1px); filter: brightness(1.2); } 
+ 
+ .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex-grow: 1; align-content: space-between; } 
+ .form-group { margin-bottom: 0px; position: relative; display: flex; flex-direction: column; justify-content: center; } 
  .span-2 { grid-column: span 2; } 
- label { display: block; margin-bottom: 4px; font-size: 13px; color: #aaa; } 
- .input-wrapper { display: flex; gap: 8px; align-items: center; position: relative; } 
- select, input { width: 100%; padding: 11px; background: #333; border: 2px solid #444; color: #fff; border-radius: 8px; font-size: 15px; outline: none; } 
+ label { display: block; margin-bottom: 2px; font-size: 11px; color: #aaa; text-transform: uppercase; font-weight: bold; } 
+ .input-wrapper { display: flex; gap: 4px; align-items: center; position: relative; width: 100%; } 
+ select, input { width: 100%; padding: 8px; background: #333; border: 2px solid #444; color: #fff; border-radius: 6px; font-size: 14px; outline: none; } 
+ select:focus, input:focus { border-color: #ffcc00; }
+
+ .seletor-games-container { display: flex; gap: 4px; width: 100%; background: #1a1a1a; padding: 2px; border-radius: 6px; border: 2px solid #444; }
+ .btn-game-opt { flex: 1; padding: 8px 0; background: transparent; border: none; color: #fff; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
+ .btn-game-opt.ativo { background: #ffcc00; color: #000; }
+
+ .sugestoes-box { position: absolute; top: 100%; left: 0; right: 0; background: #2d2d2d; border: 2px solid #444; border-top: none; border-radius: 0 0 6px 6px; max-height: 140px; overflow-y: auto; z-index: 99; display: none; box-shadow: 0 6px 12px rgba(0,0,0,0.5); }
+ .sugestao-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #3d3d3d; font-size: 13px; text-align: left; }
+ .sugestao-item:hover { background: #ffcc00; color: #000; }
+
  .select-btn-container { position: relative; display: inline-block; } 
- .btn-list, .btn-clear { background: #444; border: 2px solid #555; color: #fff; padding: 11px 14px; border-radius: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; height: 44px; width: 46px; } 
+ .btn-list, .btn-clear { background: #444; border: 2px solid #555; color: #fff; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; height: 38px; width: 38px; } 
  .btn-list:hover { background: #555; border-color: #ccff00; } 
  .btn-clear:hover { background: #555; border-color: #ff3333; } 
  .overlay-select { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; } 
- .checkbox-group { display: flex; align-items: center; gap: 10px; background: #2a2a2a; padding: 10px; border-radius: 8px; border: 1px solid #444; } 
- .checkbox-group input { width: auto; transform: scale(1.2); } 
- .checkbox-group label { margin-bottom: 0; color: #fff; } 
- .btn-play { width: 100%; padding: 14px; background: #ffcc00; border: none; color: #000; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 25px; text-transform: uppercase; } 
- #last-match-display { margin-top: 25px; text-align: center; color: #fff; font-size: 18px; line-height: 1.6; background: #1a1a1a; padding: 15px; border-radius: 8px; border: 1px dashed #444; } 
- /* --- HISTÓRICO E RANKING --- */ 
- #history-screen, #ranking-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; z-index: 30; padding: 30px; overflow-y: auto; } 
- .history-title { font-size: 24px; margin-bottom: 20px; text-transform: uppercase; color: #ffcc00; border-bottom: 2px solid #333; padding-bottom: 10px; } 
- .history-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; } 
- .history-card { background: #222; border: 1px solid #333; border-radius: 8px; padding: 15px; } 
- .history-meta { font-size: 12px; color: #888; margin-bottom: 6px; } 
- .history-details { font-size: 16px; color: #fff; } 
- .btn-close-ui { background: #ccff00; border: none; color: #000; padding: 12px 24px; font-size: 14px; border-radius: 6px; cursor: pointer; font-weight: bold; text-transform: uppercase; } 
+ .checkbox-group { display: flex; align-items: center; gap: 8px; background: #2a2a2a; padding: 8px; border-radius: 6px; border: 1px solid #444; } 
+ .checkbox-group input { width: auto; transform: scale(1.1); } 
+ .checkbox-group label { margin-bottom: 0; color: #fff; font-size: 11px; } 
+ 
+ .btn-play { width: 100%; padding: 10px; background: #ffcc00; border: none; color: #000; font-size: 15px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 6px; margin-bottom: 6px; text-transform: uppercase; } 
+ 
+ #modo-rapido-container { display: none; margin-top: 4px; padding: 10px; background: rgba(255, 45, 85, 0.15); border: 2px dashed #ff2d55; border-radius: 8px; text-align: center; animation: pulsarViva 2s infinite; }
+ .titulo-viva { font-size: 11px; color: #ff2d55; text-transform: uppercase; letter-spacing: 2px; font-weight: 900; margin-bottom: 3px; }
+ .placar-viva { font-size: 20px; color: #ffffff; font-weight: 900; text-shadow: 0 0 10px #ff2d55; font-family: monospace, sans-serif; }
+ @keyframes pulsarViva {
+    0% { box-shadow: 0 0 0 0 rgba(255, 45, 85, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 45, 85, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 45, 85, 0); }
+ }
+
+ #last-match-display { margin-top: 4px; text-align: center; color: #fff; font-size: 13px; line-height: 1.4; background: #1a1a1a; padding: 10px; border-radius: 6px; border: 1px dashed #444; width: 100%; } 
+ 
  /* --- TELA DO PLACAR --- */ 
- #scoreboard-screen { display: none; width: 100%; height: 100%; background-color: #000; grid-template-columns: 1fr 1fr; position: relative; } 
- .side-normal { flex-direction: row; } 
- .side-inverted { flex-direction: row-reverse; } 
+ #scoreboard-screen { display: none; width: 100%; height: 100%; background-color: #000; position: relative; flex-direction: column; } 
+ .score-zones-container { display: flex; width: 100%; height: 100%; flex-direction: row; }
+ .side-normal { flex-direction: row !important; direction: ltr; } 
+ .side-inverted { flex-direction: row-reverse !important; direction: rtl; } 
+ 
  .score-zone { display: flex; align-items: center; justify-content: center; height: 100%; cursor: pointer; user-select: none; -webkit-user-select: none; z-index: 1; width: 50%; } 
- .big-score { font-size: 85vh; line-height: 1; font-weight: 900; color: transparent; -webkit-text-stroke: 8px #ffcc00; text-align: center; display: flex; align-items: center; justify-content: center; transform: scaleY(1.33); } 
+ .big-score { font-size: 85vh; line-height: 1; font-weight: 900; color: transparent; -webkit-text-stroke: 8px #ffcc00; text-align: center; display: flex; align-items: center; justify-content: center; transform: scaleY(1.33); direction: ltr !important; } 
  .divider { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(255, 255, 255, 0.08); z-index: 2; } 
+ 
  /* --- FILTROS ANIMADOS DA BOLINHA --- */ 
  @keyframes blinkGreen { 0%, 100% { opacity: 0.3; box-shadow: 0 0 6px rgba(204,255,0,0.3); } 50% { opacity: 0.9; box-shadow: 0 0 25px #ccff00, 0 0 40px #ccff00; } } 
  @keyframes blinkRed { 0%, 100% { opacity: 0.3; box-shadow: 0 0 6px rgba(255,0,0,0.3); } 50% { opacity: 0.9; box-shadow: 0 0 25px #ff0000, 0 0 40px #ff0000; } } 
@@ -75,11 +95,21 @@
  .state-green { background-color: #ccff00; animation: blinkGreen 1.5s infinite ease-in-out; } 
  .state-red { background-color: #ff0000; animation: blinkRed 0.6s infinite ease-in-out; } 
  .state-blue-white { animation: blinkBlueWhite 0.5s infinite ease-in-out; } 
+ 
  /* --- PAINEL FLUTUANTE INFERIOR --- */ 
  .floating-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 14vh; display: flex; align-items: center; pointer-events: none; z-index: 3; padding-bottom: 5px; } 
- .player-info-floating { display: flex; align-items: center; justify-content: center; gap: 30px; width: 50%; } 
+ .player-info-floating { display: flex; align-items: center; justify-content: center; gap: 30px; width: 50%; direction: ltr !important; } 
  .player-name { font-size: 5vh; color: transparent; -webkit-text-stroke: 2px #ffffff; white-space: nowrap; overflow: hidden; text-transform: uppercase; text-overflow: ellipsis; max-width: 70%; } 
  .game-score { font-size: 9.6vh; font-weight: 900; color: transparent; -webkit-text-stroke: 3px #ffffff; } 
+ 
+ /* --- OUTRAS TELAS --- */
+ #history-screen, #ranking-screen { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #111; z-index: 30; padding: 15px; overflow-y: auto; } 
+ .history-title { font-size: 20px; margin-bottom: 15px; text-transform: uppercase; color: #ffcc00; border-bottom: 2px solid #333; padding-bottom: 6px; } 
+ .history-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; } 
+ .history-card { background: #222; border: 1px solid #333; border-radius: 6px; padding: 10px; } 
+ .history-meta { font-size: 11px; color: #888; margin-bottom: 4px; } 
+ .history-details { font-size: 14px; color: #fff; } 
+ .btn-close-ui { background: #ccff00; border: none; color: #000; padding: 10px 20px; font-size: 13px; border-radius: 6px; cursor: pointer; font-weight: bold; text-transform: uppercase; } 
  </style> 
 </head> 
 <body> 
@@ -89,7 +119,8 @@
  <div class="orbit orbit-1"><div class="electron-tennis-ball"></div></div> 
  <div class="orbit orbit-2"><div class="electron-tennis-ball"></div></div> 
  </div> 
- <button class="btn-babulat" onclick="enterAppFullscreen()">Babulat 0.2 12/06/2026</button> </div> 
+ <button class="btn-babulat" onclick="enterAppFullscreen()">Babulat 0.2 14/06/2026</button> </div> 
+ 
  <div id="setup-screen"> 
  <div class="header-controls"> 
  <button class="btn-ui-header btn-hist" onclick="openHistoryScreen()">Histórico</button> 
@@ -120,7 +151,8 @@
  <div class="form-group span-2"> 
  <label id="lbl-p1" for="name-p1">Nome do Jogador 1</label> 
  <div class="input-wrapper"> 
- <input type="text" id="name-p1" oninput="formatInputName(this)" placeholder="Digite ou escolha"> 
+ <input type="text" id="name-p1" value="A" oninput="formatInputName(this); lidarSugestao('name-p1', 'sugestoes-box-p1')" placeholder="Digite ou escolha" autocomplete="off"> 
+ <div id="sugestoes-box-p1" class="sugestoes-box"></div>
  <div class="select-btn-container"> 
  <button type="button" class="btn-list">📋</button> 
  <select id="select-p1" class="overlay-select" onchange="selectPlayerName('name-p1', this)"></select> 
@@ -131,7 +163,8 @@
  <div class="form-group span-2"> 
  <label id="lbl-p2" for="name-p2">Nome do Jogador 2</label> 
  <div class="input-wrapper"> 
- <input type="text" id="name-p2" oninput="formatInputName(this)" placeholder="Digite ou escolha"> 
+ <input type="text" id="name-p2" value="B" oninput="formatInputName(this); lidarSugestao('name-p2', 'sugestoes-box-p2')" placeholder="Digite ou escolha" autocomplete="off"> 
+ <div id="sugestoes-box-p2" class="sugestoes-box"></div>
  <div class="select-btn-container"> 
  <button type="button" class="btn-list">📋</button> 
  <select id="select-p2" class="overlay-select" onchange="selectPlayerName('name-p2', this)"></select> 
@@ -139,33 +172,37 @@
  <button type="button" class="btn-clear" onclick="clearFieldName('name-p2')">🧹</button> 
  </div> 
  </div> 
- <div class="form-group"> 
- <label for="select-games">Games por Set</label> 
- <select id="select-games"> 
- <option value="1">1 Game</option> 
- <option value="4" selected>4 Games</option> 
- <option value="6">6 Games</option> 
- </select> 
- </div> 
- <div class="form-group"> 
- <label for="advantage-rule">Vantagem</label> 
- <select id="advantage-rule"> 
- <option value="no-advantage" selected>Sem Vantagem (No-Ad)</option> 
- <option value="advantage">Com Vantagem (Tradicional)</option> 
- </select> 
+ <div class="form-group span-2"> 
+ <label>Games por Set (1 a 6)</label> 
+ <div class="seletor-games-container">
+    <button type="button" class="btn-game-opt" onclick="selecionarQuantidadeGames(1, this)">1</button>
+    <button type="button" class="btn-game-opt" onclick="selecionarQuantidadeGames(2, this)">2</button>
+    <button type="button" class="btn-game-opt" onclick="selecionarQuantidadeGames(3, this)">3</button>
+    <button type="button" class="btn-game-opt ativo" onclick="selecionarQuantidadeGames(4, this)">4</button>
+    <button type="button" class="btn-game-opt" onclick="selecionarQuantidadeGames(5, this)">5</button>
+    <button type="button" class="btn-game-opt" onclick="selecionarQuantidadeGames(6, this)">6</button>
+ </div>
  </div> 
  <div class="form-group span-2"> 
- <label for="side-change-rule">Troca de Lado de Quadra</label> 
+ <label for="side-change-rule">Troca de Lado</label> 
  <select id="side-change-rule"> 
- <option value="never">Nunca Mudar de Lado</option> 
- <option value="every-1">A cada 1 Game concluído</option> 
- <option value="official" selected>Regra Oficial (Soma de Games Ímpar)</option> 
+ <option value="never" selected>Nunca Mudar de Lado</option> 
+ <option value="every-game">A cada 1 Game jogado</option> 
+ <option value="odd-games">Nos Games Ímpares (1, 3, 5...)</option> 
+ <option value="set-end">Apenas no Fim de cada Set</option> 
  </select> 
  </div> 
- <div class="form-group span-2"> 
- <label for="initial-server">Quem inicia no Serviço (Saque)?</label> 
+ <div class="form-group"> 
+ <label for="advantage-rule">V A N T A G E M</label> 
+ <select id="advantage-rule"> 
+ <option value="advantage" selected>S I M</option> 
+ <option value="no-advantage">Sem Vantagem (No-Ad)</option> 
+ </select> 
+ </div> 
+ <div class="form-group"> 
+ <label for="initial-server">Inicia no Serviço</label> 
  <select id="initial-server"> 
- <option value="1" selected>Jogador 1 / Dupla 1</option> 
+ <option value="1" selected>Jogador1/Dupla1</option> 
  <option value="2">Jogador 2 / Dupla 2</option> 
  </select> 
  </div> 
@@ -177,9 +214,16 @@
  <label for="chk-history">Salvar histórico de jogos na memória local</label> </div> 
  </div> 
  <button class="btn-play" onclick="startMatch()">Play</button> 
+
+ <div id="modo-rapido-container">
+    <div class="titulo-viva">⚡ MODO RÁPIDO REGISTRADO ⚡</div>
+    <div id="txt-placar-viva" class="placar-viva">A 0 x 0 B</div>
+ </div>
+
  <div id="last-match-display"></div> 
  </div> 
  </div> 
+
  <div id="history-screen"> 
  <h2 class="history-title">Histórico de Partidas</h2> 
  <div id="history-list" class="history-list"></div> 
@@ -188,40 +232,377 @@
  <h2 class="history-title">Ranking Geral</h2> 
  <div id="ranking-list" class="history-list"></div> 
  <button class="btn-close-ui" onclick="document.getElementById('ranking-screen').style.display='none'">Fechar</button> </div> 
- <div id="scoreboard-screen" class="side-normal"> 
+ 
+ <div id="scoreboard-screen"> 
  <div id="tennis-ball-indicator" class="state-green" onclick="handleBallTap(event)"></div> 
- <div id="zone-p1" class="score-zone" onclick="handleScreenTouch(1)"> 
- <div id="display-score-p1" class="big-score">0</div> 
+ <div id="zones-wrapper" class="score-zones-container"> 
+     <div id="zone-left" class="score-zone" onclick="handleScreenTouchBySide('LEFT')"> 
+         <div id="display-score-left" class="big-score">0</div> 
+     </div> 
+     <div class="divider"></div> 
+     <div id="zone-right" class="score-zone" onclick="handleScreenTouchBySide('RIGHT')"> 
+         <div id="display-score-right" class="big-score">0</div> 
+     </div> 
  </div> 
- <div class="divider"></div> 
- <div id="zone-p2" class="score-zone" onclick="handleScreenTouch(2)"> 
- <div id="display-score-p2" class="big-score">0</div> 
+ <div id="floating-panel-container" class="floating-panel"> 
+ <div id="info-block-left" class="player-info-floating"> 
+ <div id="display-name-left" class="player-name">A</div> 
+ <div id="display-games-left" class="game-score">0</div> 
  </div> 
- <div id="floating-panel-container" class="floating-panel side-normal"> 
- <div id="info-block-p1" class="player-info-floating"> 
- <div id="display-name-p1" class="player-name">J1</div> 
- <div id="display-games-p1" class="game-score">0</div> 
- </div> 
- <div id="info-block-p2" class="player-info-floating"> 
- <div id="display-name-p2" class="player-name">J2</div> 
- <div id="display-games-p2" class="game-score">0</div> 
+ <div id="info-block-right" class="player-info-floating"> 
+ <div id="display-name-right" class="player-name">B</div> 
+ <div id="display-games-right" class="game-score">0</div> 
  </div> 
  </div> 
  </div> 
 
  <script> 
- const RAW_NAMES = ["Ale", "Babu", "Japa", "Chuck da EBF", "Kawane", "Manoel", "Bandite", "Cláudio", "Guto", "Pônei", "Kalel super Girl", "Paulinho", "Melissa", "Nilson", "Edian", "Ricardo", "Yuri", "Pingo", "Walace", "Wilian", "Nilton", "Wellington", "Evelyn", "Gabriel", "Tarzan", "Willon", "Gil", "Alex", "Emilly", "Jenysom", "Luan", "Martins", "Matheus", "Sami Ligeirinho", "Fernando"]; const TENNIS_POINTS = ["0", "15", "30", "40", "Ad"]; let p1Index = 0, p2Index = 0, p1Games = 0, p2Games = 0, p1Sets = 0, p2Sets = 0; let targetGames = 4, targetSets = 1, useAdvantage = false, voiceEnabled = true, saveHistory = true; let currentServer = 1, totalPointsInGame = 0; let sideChangeRule = "official"; let sidesInverted = false; let matchStartTime = null; let ballState = "GREEN"; let ballTimer = null; let previousState = null; window.onload = function() { buildSelectors(); }; function toggleSidesManually() { sidesInverted = !sidesInverted; applySideLayout(); updateDisplay(); speak("Lados invertidos.", function() { announceCurrentScoreAndMatch(); }); } function applySideLayout() { const board = document.getElementById('scoreboard-screen'); const panel = document.getElementById('floating-panel-container'); if (sidesInverted) { board.className = "side-inverted"; panel.className = "floating-panel side-inverted"; } else { board.className = "side-normal"; panel.className = "floating-panel side-normal"; } } function capitalizeText(str) { return str.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }); } function formatInputName(input) { let cursor = input.selectionStart; input.value = capitalizeText(input.value); input.setSelectionRange(cursor, cursor); } function buildSelectors() { const formatted = RAW_NAMES.map(n => capitalizeText(n)); formatted.sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' })); ['select-p1', 'select-p2'].forEach(id => { const select = document.getElementById(id); select.innerHTML = ""; const defaultOpt = document.createElement('option'); defaultOpt.value = ""; defaultOpt.text = "📋"; defaultOpt.disabled = false; defaultOpt.selected = true; select.appendChild(defaultOpt); formatted.forEach(name => { const opt = document.createElement('option'); opt.value = name; opt.text = name; select.appendChild(opt); }); }); } function selectPlayerName(inputId, selectElem) { if (selectElem.value !== "") { const input = document.getElementById(inputId); input.value = selectElem.value; formatInputName(input); selectElem.value = ""; } } function checkAndForceFullscreen() { const isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement; if (!isFull) { requestManualFullscreen(); } } function requestManualFullscreen() { if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(()=>{}); } else if (document.documentElement.webkitRequestFullscreen) { document.documentElement.webkitRequestFullscreen(); } } function enterAppFullscreen() { requestManualFullscreen(); document.getElementById('intro-screen').style.display = 'none'; document.getElementById('setup-screen').style.display = 'flex'; updateLastMatchUI(); } function updateLastMatchUI() { const lastMatch = JSON.parse(localStorage.getItem('last_match_summary')); const display = document.getElementById('last-match-display'); if (lastMatch) { display.innerHTML = `Último Jogo Placar Final:<br><br><strong>${lastMatch.winner} ${lastMatch.wGames}, ${lastMatch.loser} ${lastMatch.lGames}.</strong>`; } else { display.innerHTML = "Último Jogo Placar Final:<br><br><span style='color:#666;'>Nenhum jogo registrado ainda.</span>"; } } function clearFieldName(id) { document.getElementById(id).value = ""; document.getElementById(id).focus(); } function toggleInputs() { const type = document.getElementById('match-type').value; const text = type === 'duplas' ? "da Dupla" : "do Jogador"; document.getElementById('lbl-p1').innerText = `Nome ${text} 1`; document.getElementById('lbl-p2').innerText = `Nome ${text} 2`; } function setBallState(state) { ballState = state; clearTimeout(ballTimer); const ball = document.getElementById('tennis-ball-indicator'); ball.className = ""; if (state === "GREEN") { ball.classList.add('state-green'); } else if (state === "RED") { ball.classList.add('state-red'); ballTimer = setTimeout(() => { setBallState("GREEN"); }, 3000); } else if (state === "BLUE-WHITE") { ball.classList.add('state-blue-white'); ballTimer = setTimeout(() => { setBallState("GREEN"); }, 4000); } } function saveCurrentState() { previousState = { p1Index: p1Index, p2Index: p2Index, p1Games: p1Games, p2Games: p2Games, p1Sets: p1Sets, p2Sets: p2Sets, currentServer: currentServer, totalPointsInGame: totalPointsInGame, sidesInverted: sidesInverted }; } function startMatch() { const rawP1 = document.getElementById('name-p1').value.trim(); const rawP2 = document.getElementById('name-p2').value.trim(); if (!rawP1 || !rawP2) { alert("Erro: Insira os nomes reais dos jogadores antes de executar a partida!"); speak("Insira o nome dos jogadores."); return; } document.getElementById('display-name-p1').innerText = rawP1; document.getElementById('display-name-p2').innerText = rawP2; targetGames = parseInt(document.getElementById('select-games').value); targetSets = parseInt(document.getElementById('select-sets').value); useAdvantage = document.getElementById('advantage-rule').value === 'advantage'; sideChangeRule = document.getElementById('side-change-rule').value; voiceEnabled = document.getElementById('chk-voice').checked; saveHistory = document.getElementById('chk-history').checked; currentServer = parseInt(document.getElementById('initial-server').value); p1Index = 0; p2Index = 0; p1Games = 0; p2Games = 0; p1Sets = 0; p2Sets = 0; totalPointsInGame = 0; sidesInverted = false; matchStartTime = new Date(); previousState = null; applySideLayout(); document.getElementById('setup-screen').style.display = 'none'; document.getElementById('scoreboard-screen').style.display = 'flex'; setBallState("GREEN"); updateDisplay(); speak("Partida iniciada."); } function speak(text, callback) { if (!voiceEnabled) { if(callback) callback(); return; } window.speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'pt-BR'; if (callback) utterance.onend = callback; window.speechSynthesis.speak(utterance); } function handleBallTap(e) { e.stopPropagation(); if (ballState === "BLUE-WHITE") { toggleSidesManually(); return; } if (ballState === "GREEN") { setBallState("RED"); } else if (ballState === "RED") { setBallState("BLUE-WHITE"); } } function handleScreenTouch(player) { checkAndForceFullscreen(); if (ballState === "GREEN") { announceCurrentScoreAndMatch(); return; } if (ballState === "RED") { saveCurrentState(); setBallState("GREEN"); scorePoint(player); return; } if (ballState === "BLUE-WHITE") { setBallState("GREEN"); if (previousState) { p1Index = previousState.p1Index; p2Index = previousState.p2Index; p1Games = previousState.p1Games; p2Games = previousState.p2Games; p1Sets = previousState.p1Sets; p2Sets = previousState.p2Sets; currentServer = previousState.currentServer; totalPointsInGame = previousState.totalPointsInGame; sidesInverted = previousState.sidesInverted; applySideLayout(); updateDisplay(); let txtPlacar = ""; if (p1Index === 3 && p2Index === 3) { txtPlacar = "40 iguais"; } else if (currentServer === 1) { txtPlacar = `${TENNIS_POINTS[p1Index]} a ${TENNIS_POINTS[p2Index]}`; } else { txtPlacar = `${TENNIS_POINTS[p2Index]} a ${TENNIS_POINTS[p1Index]}`; } speak("Voltou para: " + txtPlacar); } else { speak("Não há jogada anterior."); } return; } } function scorePoint(player) { if (player === 1) { if (p1Index === 3 && p2Index === 3) { if (useAdvantage) p1Index = 4; else { winGame(1); return; } } else if (p2Index === 4) p2Index = 3; else if (p1Index === 4 || (p1Index === 3 && p2Index < 3)) { winGame(1); return; } else p1Index++; } else { if (p2Index === 3 && p1Index === 3) { if (useAdvantage) p2Index = 4; else { winGame(2); return; } } else if (p1Index === 4) p1Index = 3; else if (p2Index === 4 || (p2Index === 3 && p1Index < 3)) { winGame(2); return; } else p2Index++; } totalPointsInGame++; updateDisplay(); announceOnlyGameScore(); } function announceOnlyGameScore() { const score1 = TENNIS_POINTS[p1Index]; const score2 = TENNIS_POINTS[p2Index]; const name1 = document.getElementById('display-name-p1').innerText; const name2 = document.getElementById('display-name-p2').innerText; if (p1Index === 3 && p2Index === 3) { speak("40 iguais."); return; } else if (score1 === score2) { speak(`Iguais em ${score1}.`); return; } if (currentServer === 1) { if (score1 === "Ad") speak(`Vantagem ${name1}.`); else if (score2 === "Ad") speak(`Vantagem ${name2}.`); else speak(`${score1} a ${score2 === "0" ? "zero" : score2}.`); } else { if (score2 === "Ad") speak(`Vantagem ${name2}.`); else if (score1 === "Ad") speak(`Vantagem ${name1}.`); else speak(`${score2} a ${score1 === "0" ? "zero" : score1}.`); } } function announceCurrentScoreAndMatch() { const score1 = TENNIS_POINTS[p1Index]; const score2 = TENNIS_POINTS[p2Index]; const name1 = document.getElementById('display-name-p1').innerText; const name2 = document.getElementById('display-name-p2').innerText; let gamePart = ""; if (p1Index === 3 && p2Index === 3) { gamePart = "40 iguais"; } else if (score1 === score2) { gamePart = `Iguais em ${score1}`; } else if (currentServer === 1) { if (score1 === "Ad") gamePart = `Vantagem ${name1}`; else if (score2 === "Ad") gamePart = `Vantagem ${name2}`; else gamePart = `${score1} a ${score2 === "0" ? "zero" : score2}`; } else { if (score2 === "Ad") gamePart = `Vantagem ${name2}`; else if (score1 === "Ad") gamePart = `Vantagem ${name1}`; else gamePart = `${score2} a ${score1 === "0" ? "zero" : score1}`; } let matchPart = (currentServer === 1) ? `, ${p1Games} a ${p2Games}` : `, ${p2Games} a ${p1Games}`; speak(gamePart + matchPart); } function checkSideChangeAutomation() { if (sideChangeRule === "never") return; const totalGames = p1Games + p2Games; if (sideChangeRule === "every-1") { sidesInverted = !sidesInverted; } else if (sideChangeRule === "official") { if (totalGames % 2 !== 0) { sidesInverted = !sidesInverted; } } applySideLayout(); } function winGame(player) { p1Index = 0; p2Index = 0; totalPointsInGame = 0; currentServer = currentServer === 1 ? 2 : 1; if (player === 1) { p1Games++; if (p1Games >= targetGames) { winSet(1); return; } } else { p2Games++; if (p2Games >= targetGames) { winSet(2); return; } } checkSideChangeAutomation(); updateDisplay(); speak("Game.", function() { announceGameScore(); }); } function announceGameScore() { if (currentServer === 1) { speak(`${p1Games} a ${p2Games}`); } else { speak(`${p2Games} a ${p1Games}`); } } function winSet(player) { const name = document.getElementById(`display-name-p${player}`).innerText; if (player === 1) { p1Sets++; if (p1Sets >= Math.ceil(targetSets / 2)) { endMatch(name, 1); return; } } else { p2Sets++; if (p2Sets >= Math.ceil(targetSets / 2)) { endMatch(name, 2); return; } } p1Games = 0; p2Games = 0; if (sideChangeRule === "official") { sidesInverted = !sidesInverted; } applySideLayout(); updateDisplay(); speak("Set " + name, function() { announceGameScore(); }); } function endMatch(winnerName, winnerNumber) { updateDisplay(); const loserName = (winnerNumber === 1) ? document.getElementById('display-name-p2').innerText : document.getElementById('display-name-p1').innerText; const wGames = (winnerNumber === 1) ? p1Games : p2Games; const lGames = (winnerNumber === 1) ? p2Games : p1Games; speak(`Fim de jogo, ${winnerName} venceu. ${winnerName} ${wGames}, ${loserName} ${lGames}.`); localStorage.setItem('last_match_summary', JSON.stringify({ winner: winnerName, loser: loserName, wGames: wGames, lGames: lGames })); let matchEndTime = new Date(); let durationMinutes = Math.round((matchEndTime - matchStartTime) / 60000); if (saveHistory) { const gameLog = { data: matchStartTime.toLocaleDateString('pt-BR'), inicio: matchStartTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), fim: matchEndTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), jogador1: document.getElementById('display-name-p1').innerText, jogador2: document.getElementById('display-name-p2').innerText, vencedor: winnerName, setsP1: p1Sets, setsP2: p2Sets, gamesP1: p1Games, gamesP2: p2Games, duracao: durationMinutes }; let history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); history.push(gameLog); localStorage.setItem('tennis_history', JSON.stringify(history)); } setTimeout(() => { alert(`${winnerName} Venceu a Partida!`); requestManualFullscreen(); p1Index = 0; p2Index = 0; p1Games = 0; p2Games = 0; p1Sets = 0; p2Sets = 0; totalPointsInGame = 0; previousState = null; setBallState("GREEN"); document.getElementById('scoreboard-screen').style.display = 'none'; document.getElementById('setup-screen').style.display = 'flex'; updateLastMatchUI(); }, 3500); } function updateDisplay() { document.getElementById('display-score-p1').innerText = TENNIS_POINTS[p1Index]; document.getElementById('display-score-p2').innerText = TENNIS_POINTS[p2Index]; document.getElementById('display-games-p1').innerText = p1Games; document.getElementById('display-games-p2').innerText = p2Games; const ball = document.getElementById('tennis-ball-indicator'); if (currentServer === 1) { ball.style.left = (!sidesInverted) ? "8vw" : "92vw"; if (totalPointsInGame % 2 === 0) { ball.style.top = (!sidesInverted) ? "75vh" : "25vh"; } else { ball.style.top = (!sidesInverted) ? "25vh" : "75vh"; } } else { ball.style.left = (!sidesInverted) ? "92vw" : "8vw"; if (totalPointsInGame % 2 === 0) { ball.style.top = (!sidesInverted) ? "25vh" : "75vh"; } else { ball.style.top = (!sidesInverted) ? "75vh" : "25vh"; } } } function openHistoryScreen() { const listContainer = document.getElementById('history-list'); listContainer.innerHTML = ""; const history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); if (history.length === 0) { listContainer.innerHTML = "<div style='color: #666;'>Nenhum registro encontrado.</div>"; } else { history.forEach(match => { listContainer.innerHTML += `<div class="history-card"><div class="history-meta">Data: ${match.data} | Início: ${match.inicio} - Fim: ${match.fim} | Duração: ${match.duracao} min</div><div class="history-details"><strong>${match.jogador1}</strong> vs <strong>${match.jogador2}</strong><br>Sets Vencidos: ${match.setsP1} - ${match.setsP2} | Último Set: ${match.gamesP1} - ${match.gamesP2}<br><span style="color: #ccff00; font-size: 13px;">Vencedor: ${match.vencedor}</span></div></div>`; }); } document.getElementById('history-screen').style.display = 'block'; } function openRankingScreen() { const history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); const stats = {}; history.forEach(match => { [match.jogador1, match.jogador2].forEach(p => { if (!stats[p]) stats[p] = { pontos: 0, gamesGanhos: 0 }; }); stats[match.vencedor].pontos += 3; stats[match.jogador1].gamesGanhos += parseInt(match.gamesP1 || 0); stats[match.jogador2].gamesGanhos += parseInt(match.gamesP2 || 0); }); const ranking = Object.keys(stats).sort((a, b) => { if (stats[b].pontos !== stats[a].pontos) return stats[b].pontos - stats[a].pontos; return stats[b].gamesGanhos - stats[a].gamesGanhos; }); const rList = document.getElementById('ranking-list'); rList.innerHTML = ranking.length === 0 ? "<div style='color:#666;'>Sem dados para o ranking.</div>" : ""; ranking.forEach((player, idx) => { rList.innerHTML += `<div class="history-card"><div class="history-details" style="display:flex; justify-content:space-between;"><span><strong>${idx + 1}º ${player}</strong></span><span>Pontos: <strong style="color:#ffcc00;">${stats[player].pontos}</strong> | Games Ganhos: ${stats[player].gamesGanhos}</span></div></div>`; }); document.getElementById('ranking-screen').style.display = 'block'; } function exportDailyHistoryToTXT() { const history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); if (history.length === 0) { alert("Não existem partidas salvas no histórico para exportar."); return; } const hoje = new Date().toLocaleDateString('pt-BR'); const jogosDeHoje = history.filter(m => m.data === hoje); if (jogosDeHoje.length === 0) { alert(`Nenhum jogo foi registrado na data de hoje (${hoje}).`); return; } let txtConteudo = `==== RELATÓRIO DIÁRIO DE JOGOS - ${hoje} ====\r\n\r\n`; jogosDeHoje.forEach((match, idx) => { txtConteudo += `Jogo #${idx + 1}\r\n`; txtConteudo += `Horário: ${match.inicio} até ${match.fim} (${match.duracao} min)\r\n`; txtConteudo += `Confronto: ${match.jogador1} vs ${match.jogador2}\r\n`; txtConteudo += `Sets: [${match.jogador1}] ${match.setsP1} x ${match.setsP2} [${match.jogador2}]\r\n`; txtConteudo += `Último Set (Games): ${match.gamesP1} x ${match.gamesP2}\r\n`; txtConteudo += `Vencedor Absoluto: ${match.vencedor}\r\n`; txtConteudo += `--------------------------------------------------\r\n`; }); const dataNomeArquivo = hoje.replace(/\//g, '_'); const nomeDoArquivo = `placar_${dataNomeArquivo}.txt`; const blob = new Blob([txtConteudo], { type: 'text/plain;charset=utf-8;' }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.setAttribute("download", nomeDoArquivo); document.body.appendChild(link); link.click(); document.body.removeChild(link); } function secureProtectedReset() { let savedPassword = localStorage.getItem('app_admin_password'); const APP_VERSION = "PlaCar0.132"; const MASTER_SECRET = "BABULAT_CHAVE_SECRETA_2026"; const SEGUNDA_SENHA_MESTRE = "BBLPRO2026"; function cadastrarNovaSenha() { const novaSenha = prompt("SUPORTE REMOTO:\nDigite a sua NOVA senha de proteção:"); if (!novaSenha || novaSenha.trim() === "") { alert("Operação cancelada. O aplicativo continuará sem senha até que você defina uma."); localStorage.removeItem('app_admin_password'); return; } const confirmacao = prompt("Confirme a nova senha digitando-a novamente:"); if (novaSenha !== confirmacao) { alert("As senhas não coincidem. Processo abortado. Tente o reset novamente."); return; } localStorage.setItem('app_admin_password', novaSenha.trim()); alert("Sua nova senha foi registrada com sucesso! Guarde-a em um local seguro."); } function generateDynamicHash(version, secret) { const hoje = new Date().toISOString().split('T')[0]; let combo = version + "@" + secret + "@" + hoje; let hash = 5381; for (let i = 0; i < combo.length; i++) { hash = ((hash << 5) + hash) + combo.charCodeAt(i); } return Math.abs(hash).toString(36).substring(0, 8).toUpperCase(); } if (!savedPassword) { const novaSenha = prompt("PRIMEIRA EXECUÇÃO: Defina uma senha de segurança para proteger a exclusão dos dados:"); if (!novaSenha || novaSenha.trim() === "") { alert("Operação cancelada. Uma senha válida precisa ser definida."); return; } const confirmacao = prompt("Confirme a nova senha digitando-a novamente:"); if (novaSenha !== confirmacao) { alert("As senhas não coincidem. Processo abortado."); return; } localStorage.setItem('app_admin_password', novaSenha.trim()); alert("Senha de proteção registrada com sucesso! Clique novamente em Reset para prosseguir."); return; } const tentativa = prompt("Digite a senha de administrador para autorizar a limpeza total:\n(Ou digite 'ESQUECI' para redefinir sua senha via suporte)"); if (tentativa === null) return; const senhaDigitada = tentativa.trim(); if (senhaDigitada.toUpperCase() === "ESQUECI") { const hashValidoHoje = generateDynamicHash(APP_VERSION, MASTER_SECRET); const tokenUsuario = prompt(`REDEFINIR SENHA:\nInforme a versão (${APP_VERSION}) ao administrador.\n\nEste código expira hoje.\nDigite o código de liberação recebido:`); if (tokenUsuario === null) return; if (tokenUsuario.trim().toUpperCase() === hashValidoHoje) { localStorage.removeItem('app_admin_password'); alert("Código aceito! A senha antiga foi apagada."); cadastrarNovaSenha(); } else { alert("Código inválido ou expirado! Certifique-se de que a data do seu dispositivo está correta."); } return; } if (senhaDigitada === SEGUNDA_SENHA_MESTRE || senhaDigitada === savedPassword) { const confFinal = confirm("ATENÇÃO: Isso apagará permanentemente todo o histórico de partidas, estatísticas de ranking e resumos. Tem certeza absoluta?"); if (confFinal) { localStorage.removeItem('tennis_history'); localStorage.removeItem('last_match_summary'); updateLastMatchUI(); alert("Todos os dados do aplicativo foram limpos com sucesso!"); } } else { alert("Senha incorreta. Acesso negado."); } } 
+ const RAW_NAMES = ["Ale", "Babu", "Japa", "Chuck da EBF", "Kawane", "Manoel", "Bandite", "Cláudio", "Guto", "Pônei", "Kalel super Girl", "Paulinho", "Melissa", "Nilson", "Edian", "Ricardo", "Yuri", "Pingo", "Walace", "Wilian", "Nilton", "Wellington", "Evelyn", "Gabriel", "Tarzan", "Willon", "Gil", "Alex", "Emilly", "Jenysom", "Luan", "Martins", "Matheus", "Sami Ligeirinho", "Fernando"]; const TENNIS_POINTS = ["0", "15", "30", "40", "Ad"]; let p1Index = 0, p2Index = 0, p1Games = 0, p2Games = 0, p1Sets = 0, p2Sets = 0; let targetGames = 4, targetSets = 1, useAdvantage = true, voiceEnabled = true, saveHistory = true; let currentServer = 1, totalPointsInGame = 0; let sideChangeRule = "never"; let sidesInverted = false; let matchStartTime = null; let ballState = "GREEN"; let ballTimer = null; let previousState = null; let modoRapidoAtivo = false; window.onload = function() { buildSelectors(); }; 
 
- // --- REGISTRO DO SERVICE WORKER PWA ---
+ function toggleSidesManually() { 
+    sidesInverted = !sidesInverted; 
+    sideChangeRule = "manual"; 
+    applySideLayout(); 
+    updateDisplay(); 
+    speak("Lados invertidos.", function() { announceCurrentScoreAndMatch(); }); 
+ } 
+
+ function checkAutomaticSideChange(contexto) {
+    if (sideChangeRule === "manual" || sideChangeRule === "never") return;
+    
+    let totalGamesNoSet = p1Games + p2Games;
+    let deveInverter = false;
+    
+    if (sideChangeRule === "every-game" && contexto === "game-end") {
+        deveInverter = true;
+    } else if (sideChangeRule === "odd-games" && contexto === "game-end") {
+        if (totalGamesNoSet % 2 !== 0) {
+            deveInverter = true;
+        }
+    } else if (sideChangeRule === "set-end" && contexto === "set-end") {
+        deveInverter = true;
+    }
+    
+    if (deveInverter) {
+        sidesInverted = !sidesInverted;
+        applySideLayout();
+        speak("Troca de lados.");
+    }
+ }
+
+ function applySideLayout() { 
+    const wrapper = document.getElementById('zones-wrapper');
+    const panel = document.getElementById('floating-panel-container'); 
+    if (sidesInverted) { 
+        wrapper.className = "score-zones-container side-inverted"; 
+        panel.className = "floating-panel side-inverted"; 
+    } else { 
+        wrapper.className = "score-zones-container side-normal"; 
+        panel.className = "floating-panel side-normal"; 
+    } 
+ } 
+
+ function handleScreenTouchBySide(sideName) {
+    let playerTarget = 1;
+    
+    if (!sidesInverted) {
+        playerTarget = (sideName === 'LEFT') ? 1 : 2;
+    } else {
+        playerTarget = (sideName === 'LEFT') ? 2 : 1;
+    }
+    
+    handleScreenTouch(playerTarget);
+ }
+
+ function capitalizeText(str) { return str.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }); } function formatInputName(input) { let cursor = input.selectionStart; input.value = capitalizeText(input.value); input.setSelectionRange(cursor, cursor); } function buildSelectors() { const formatted = RAW_NAMES.map(n => capitalizeText(n)); formatted.sort((a, b) => a.localeCompare(b, 'pt', { sensitivity: 'base' })); ['select-p1', 'select-p2'].forEach(id => { const select = document.getElementById(id); select.innerHTML = ""; const defaultOpt = document.createElement('option'); defaultOpt.value = ""; defaultOpt.text = "📋"; defaultOpt.disabled = false; defaultOpt.selected = true; select.appendChild(defaultOpt); formatted.forEach(name => { const opt = document.createElement('option'); opt.value = name; opt.text = name; select.appendChild(opt); }); }); } function selectPlayerName(inputId, selectElem) { if (selectElem.value !== "") { const input = document.getElementById(inputId); input.value = selectElem.value; formatInputName(input); selectElem.value = ""; } }
+
+ function lidarSugestao(inputId, boxId) {
+    const input = document.getElementById(inputId);
+    const box = document.getElementById(boxId);
+    const termo = input.value.trim().toLowerCase();
+    box.innerHTML = "";
+    if (termo.length === 0) { box.style.display = "none"; return; }
+    const filtrados = RAW_NAMES.map(n => capitalizeText(n)).filter(nome => nome.toLowerCase().startsWith(termo));
+    if (filtrados.length > 0) {
+        filtrados.forEach(nome => {
+            const item = document.createElement('div');
+            item.className = "sugestao-item";
+            item.innerText = nome;
+            item.onclick = function() { input.value = nome; box.style.display = "none"; };
+            box.appendChild(item);
+        });
+        box.style.display = "block";
+    } else { box.style.display = "none"; }
+ }
+
+ document.addEventListener('click', function(e) {
+    if (!e.target.closest('.input-wrapper')) {
+        document.getElementById('sugestoes-box-p1').style.display = "none";
+        document.getElementById('sugestoes-box-p2').style.display = "none";
+    }
+ });
+
+ function selecionarQuantidadeGames(valor, elemento) {
+    targetGames = valor;
+    document.querySelectorAll('.btn-game-opt').forEach(b => b.classList.remove('ativo'));
+    elemento.classList.add('ativo');
+ }
+
+ function checkAndForceFullscreen() { const isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement; if (!isFull) { requestManualFullscreen(); } } function requestManualFullscreen() { if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen().catch(()=>{}); } else if (document.documentElement.webkitRequestFullscreen) { document.documentElement.webkitRequestFullscreen(); } } function enterAppFullscreen() { requestManualFullscreen(); document.getElementById('intro-screen').style.display = 'none'; document.getElementById('setup-screen').style.display = 'flex'; updateLastMatchUI(); } function updateLastMatchUI() { const lastMatch = JSON.parse(localStorage.getItem('last_match_summary')); const display = document.getElementById('last-match-display'); if (lastMatch) { display.innerHTML = `Último Jogo Placar Final:<br><br><strong>${lastMatch.winner} ${lastMatch.wGames}, ${lastMatch.loser} ${lastMatch.lGames}.</strong>`; } else { display.innerHTML = "Último Jogo Placar Final:<br><br><span style='color:#666;'>Nenhum jogo registrado ainda.</span>"; } } function clearFieldName(id) { document.getElementById(id).value = ""; document.getElementById(id).focus(); } function toggleInputs() { const type = document.getElementById('match-type').value; const text = type === 'duplas' ? "da Dupla" : "do Jogador"; document.getElementById('lbl-p1').innerText = `Nome ${text} 1`; document.getElementById('lbl-p2').innerText = `Nome ${text} 2`; } function setBallState(state) { ballState = state; clearTimeout(ballTimer); const ball = document.getElementById('tennis-ball-indicator'); ball.className = ""; if (state === "GREEN") { ball.classList.add('state-green'); } else if (state === "RED") { ball.classList.add('state-red'); ballTimer = setTimeout(() => { setBallState("GREEN"); }, 3000); } else if (state === "BLUE-WHITE") { ball.classList.add('state-blue-white'); ballTimer = setTimeout(() => { setBallState("GREEN"); }, 4000); } } function saveCurrentState() { previousState = { p1Index: p1Index, p2Index: p2Index, p1Games: p1Games, p2Games: p2Games, p1Sets: p1Sets, p2Sets: p2Sets, currentServer: currentServer, totalPointsInGame: totalPointsInGame, sidesInverted: sidesInverted, sideChangeRule: sideChangeRule }; } 
+ 
+ function startMatch() { 
+    const rawP1 = document.getElementById('name-p1').value.trim(); 
+    const rawP2 = document.getElementById('name-p2').value.trim(); 
+    if (!rawP1 || !rawP2) { alert("Erro: Insira os nomes reais dos jogadores antes de executar a partida!"); speak("Insira o nome dos jogadores."); return; } 
+    
+    document.getElementById('modo-rapido-container').style.display = "none";
+    modoRapidoAtivo = (rawP1 === "A" && rawP2 === "B");
+    
+    targetSets = parseInt(document.getElementById('select-sets').value); 
+    useAdvantage = document.getElementById('advantage-rule').value === 'advantage'; 
+    sideChangeRule = document.getElementById('side-change-rule').value; 
+    voiceEnabled = document.getElementById('chk-voice').checked; 
+    saveHistory = modoRapidoAtivo ? false : document.getElementById('chk-history').checked; 
+    currentServer = parseInt(document.getElementById('initial-server').value); 
+    
+    p1Index = 0; p2Index = 0; p1Games = 0; p2Games = 0; p1Sets = 0; p2Sets = 0; totalPointsInGame = 0; 
+    sidesInverted = false; 
+    matchStartTime = new Date(); 
+    previousState = null; 
+    
+    applySideLayout(); 
+    document.getElementById('setup-screen').style.display = 'none'; 
+    document.getElementById('scoreboard-screen').style.display = 'flex'; 
+    setBallState("GREEN"); 
+    updateDisplay(); 
+    speak("Partida iniciada."); 
+ } 
+ 
+ function speak(text, callback) { if (!voiceEnabled) { if(callback) callback(); return; } window.speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'pt-BR'; if (callback) utterance.onend = callback; window.speechSynthesis.speak(utterance); } function handleBallTap(e) { e.stopPropagation(); if (ballState === "BLUE-WHITE") { toggleSidesManually(); return; } if (ballState === "GREEN") { setBallState("RED"); } else if (ballState === "RED") { setBallState("BLUE-WHITE"); } }
+
+ function handleScreenTouch(player) {
+    const isFull = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+    if (!isFull) { requestManualFullscreen(); }
+    
+    if (ballState === "GREEN") {
+        announceCurrentScoreAndMatch();
+        return;
+    }
+    if (ballState === "RED") {
+        saveCurrentState();
+        setBallState("GREEN");
+        scorePoint(player);
+        return;
+    }
+    if (ballState === "BLUE-WHITE") {
+        setBallState("GREEN");
+        if (previousState) {
+            p1Index = previousState.p1Index;
+            p2Index = previousState.p2Index;
+            p1Games = previousState.p1Games;
+            p2Games = previousState.p2Games;
+            p1Sets = previousState.p1Sets;
+            p2Sets = previousState.p2Sets;
+            currentServer = previousState.currentServer;
+            totalPointsInGame = previousState.totalPointsInGame;
+            sidesInverted = previousState.sidesInverted;
+            sideChangeRule = previousState.sideChangeRule;
+            
+            applySideLayout();
+            updateDisplay();
+            
+            let txtPlacar = "";
+            if (p1Index === 3 && p2Index === 3) {
+                txtPlacar = "40 iguais";
+            } else if (currentServer === 1) {
+                txtPlacar = `${TENNIS_POINTS[p1Index]} a ${TENNIS_POINTS[p2Index]}`;
+            } else {
+                txtPlacar = `${TENNIS_POINTS[p2Index]} a ${TENNIS_POINTS[p1Index]}`;
+            }
+            speak("Voltou para: " + txtPlacar);
+        } else {
+            speak("Não há jogada anterior.");
+        }
+        return;
+    }
+ }
+
+ function scorePoint(player) { if (player === 1) { if (p1Index === 3 && p2Index === 3) { if (useAdvantage) p1Index = 4; else { winGame(1); return; } } else if (p2Index === 4) p2Index = 3; else if (p1Index === 4 || (p1Index === 3 && p2Index < 3)) { winGame(1); return; } else p1Index++; } else { if (p2Index === 3 && p1Index === 3) { if (useAdvantage) p2Index = 4; else { winGame(2); return; } } else if (p1Index === 4) p1Index = 3; else if (p2Index === 4 || (p2Index === 3 && p1Index < 3)) { winGame(2); return; } else p2Index++; } totalPointsInGame++; updateDisplay(); announceOnlyGameScore(); }
+
+ function announceOnlyGameScore() {
+    const rawP1 = document.getElementById('name-p1').value.trim();
+    const rawP2 = document.getElementById('name-p2').value.trim();
+    const score1 = TENNIS_POINTS[p1Index];
+    const score2 = TENNIS_POINTS[p2Index];
+    
+    if (score1 === "Ad") { speak(`Vantagem ${rawP1}.`); return; }
+    if (score2 === "Ad") { speak(`Vantagem ${rawP2}.`); return; }
+    
+    if (p1Index === 3 && p2Index === 3) { speak("40 iguais."); return; }
+    else if (score1 === score2) { speak(`Iguais em ${score1}.`); return; }
+    
+    if (currentServer === 1) {
+        speak(`${score1} a ${score2 === "0" ? "zero" : score2}.`);
+    } else {
+        speak(`${score2} a ${score1 === "0" ? "zero" : score1}.`);
+    }
+ }
+
+ function announceCurrentScoreAndMatch() { 
+    const rawP1 = document.getElementById('name-p1').value.trim();
+    const rawP2 = document.getElementById('name-p2').value.trim();
+    const score1 = TENNIS_POINTS[p1Index]; 
+    const score2 = TENNIS_POINTS[p2Index]; 
+    let gamePart = ""; 
+    if (p1Index === 3 && p2Index === 3) { gamePart = "40 iguais"; } 
+    else if (score1 === score2) { gamePart = `Iguais em ${score1}`; } 
+    else if (score1 === "Ad") { gamePart = `Vantagem ${rawP1}`; } 
+    else if (score2 === "Ad") { gamePart = `Vantagem ${rawP2}`; } 
+    else if (currentServer === 1) { gamePart = `${score1} a ${score2 === "0" ? "zero" : score2}`; } 
+    else { gamePart = `${score2} a ${score1 === "0" ? "zero" : score1}`; } 
+    let matchPart = (currentServer === 1) ? `, ${p1Games} a ${p2Games}` : `, ${p2Games} a ${p1Games}`; 
+    speak(gamePart + matchPart); 
+ }
+
+ function winGame(player) { p1Index = 0; p2Index = 0; totalPointsInGame = 0; currentServer = currentServer === 1 ? 2 : 1; if (player === 1) { p1Games++; if (p1Games >= targetGames) { winSet(1); return; } } else { p2Games++; if (p2Games >= targetGames) { winSet(2); return; } } updateDisplay(); speak("Game.", function() { announceGameScore(); checkAutomaticSideChange("game-end"); }); } function announceGameScore() { if (currentServer === 1) { speak(`${p1Games} a ${p2Games}`); } else { speak(`${p2Games} a ${p1Games}`); } }
+
+ function winSet(player) {
+    const rawP1 = document.getElementById('name-p1').value.trim();
+    const rawP2 = document.getElementById('name-p2').value.trim();
+    const name = (player === 1) ? rawP1 : rawP2;
+    if (player === 1) {
+        p1Sets++;
+        if (p1Sets >= Math.ceil(targetSets / 2)) {
+            endMatch(name, 1);
+            return;
+        }
+    } else {
+        p2Sets++;
+        if (p2Sets >= Math.ceil(targetSets / 2)) {
+            endMatch(name, 2);
+            return;
+        }
+    }
+    p1Games = 0;
+    p2Games = 0;
+    updateDisplay();
+    speak("Set " + name, function() {
+        checkAutomaticSideChange("set-end");
+    });
+ } 
+ 
+ function endMatch(winnerName, winnerNumber) { 
+    updateDisplay(); 
+    const rawP1 = document.getElementById('name-p1').value.trim();
+    const rawP2 = document.getElementById('name-p2').value.trim();
+    const loserName = (winnerNumber === 1) ? rawP2 : rawP1; 
+    const wGames = (winnerNumber === 1) ? p1Games : p2Games; 
+    const lGames = (winnerNumber === 1) ? p2Games : p1Games; 
+    const textoResultado = `${winnerName} ${wGames} x ${lGames} ${loserName}`;
+    speak(`Fim de jogo, ${winnerName} venceu. ${winnerName} ${wGames}, ${loserName} ${lGames}.`); 
+    
+    if (modoRapidoAtivo) {
+        document.getElementById('txt-placar-viva').innerText = textoResultado;
+        document.getElementById('modo-rapido-container').style.display = "block";
+    } else {
+        localStorage.setItem('last_match_summary', JSON.stringify({ winner: winnerName, loser: loserName, wGames: wGames, lGames: lGames })); 
+        let matchEndTime = new Date(); 
+        let durationMinutes = Math.round((matchEndTime - matchStartTime) / 60000); 
+        if (saveHistory) { 
+            const gameLog = { 
+                data: matchStartTime.toLocaleDateString('pt-BR'), 
+                inicio: matchStartTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), 
+                fim: matchEndTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), 
+                jogador1: rawP1, 
+                jogador2: rawP2, 
+                vencedor: winnerName, 
+                setsP1: p1Sets, 
+                setsP2: p2Sets, 
+                gamesP1: p1Games, 
+                gamesP2: p2Games, 
+                duracao: durationMinutes 
+            }; 
+            let history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); 
+            history.push(gameLog); 
+            localStorage.setItem('tennis_history', JSON.stringify(history)); 
+        }
+    }
+    setTimeout(() => { 
+        requestManualFullscreen(); 
+        p1Index = 0; p2Index = 0; p1Games = 0; p2Games = 0; p1Sets = 0; p2Sets = 0; totalPointsInGame = 0; 
+        previousState = null; 
+        setBallState("GREEN"); 
+        document.getElementById('scoreboard-screen').style.display = 'none'; 
+        document.getElementById('setup-screen').style.display = 'flex'; 
+        updateLastMatchUI(); 
+    }, 3500); 
+ } 
+ 
+ function updateDisplay() { 
+    const rawP1 = document.getElementById('name-p1').value.trim();
+    const rawP2 = document.getElementById('name-p2').value.trim();
+
+    // Atualiza pontos gigantes E os blocos de informações inferiores baseando-se na inversão de lado
+    if (!sidesInverted) {
+        // Modo Normal: P1 na Esquerda, P2 na Direita
+        document.getElementById('display-score-left').innerText = TENNIS_POINTS[p1Index]; 
+        document.getElementById('display-score-right').innerText = TENNIS_POINTS[p2Index]; 
+        
+        document.getElementById('display-name-left').innerText = rawP1;
+        document.getElementById('display-games-left').innerText = p1Games;
+        
+        document.getElementById('display-name-right').innerText = rawP2;
+        document.getElementById('display-games-right').innerText = p2Games;
+    } else {
+        // Modo Invertido: P2 na Esquerda, P1 na Direita
+        document.getElementById('display-score-left').innerText = TENNIS_POINTS[p2Index]; 
+        document.getElementById('display-score-right').innerText = TENNIS_POINTS[p1Index]; 
+        
+        document.getElementById('display-name-left').innerText = rawP2;
+        document.getElementById('display-games-left').innerText = p2Games;
+        
+        document.getElementById('display-name-right').innerText = rawP1;
+        document.getElementById('display-games-right').innerText = p1Games;
+    }
+    
+    const ball = document.getElementById('tennis-ball-indicator'); 
+    let leftP1 = "8vw", leftP2 = "92vw";
+    if (sidesInverted) {
+        leftP1 = "92vw";
+        leftP2 = "8vw";
+    }
+    
+    let isDeuceOrAdvantageSide = true; 
+    if (p1Index === 4 || p2Index === 4) {
+        isDeuceOrAdvantageSide = false; 
+    } else {
+        isDeuceOrAdvantageSide = ((p1Index + p2Index) % 2 === 0);
+    }
+
+    if (currentServer === 1) { 
+        ball.style.left = leftP1; 
+        if (!sidesInverted) {
+            ball.style.top = isDeuceOrAdvantageSide ? "75vh" : "25vh"; 
+        } else {
+            ball.style.top = isDeuceOrAdvantageSide ? "25vh" : "75vh"; 
+        }
+    } else { 
+        ball.style.left = leftP2; 
+        if (!sidesInverted) {
+            ball.style.top = isDeuceOrAdvantageSide ? "25vh" : "75vh"; 
+        } else {
+            ball.style.top = isDeuceOrAdvantageSide ? "75vh" : "25vh"; 
+        }
+    } 
+ } 
+ 
+ function openHistoryScreen() { const listContainer = document.getElementById('history-list'); listContainer.innerHTML = ""; const history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); if (history.length === 0) { listContainer.innerHTML = "<div style='color: #666;'>Nenhum registro encontrado.</div>"; } else { history.forEach(match => { listContainer.innerHTML += `<div class="history-card"><div class="history-meta">Data: ${match.data} | Início: ${match.inicio} - Fim: ${match.fim} | Duração: ${match.duracao} min</div><div class="history-details"><strong>${match.jogador1}</strong> vs <strong>${match.jogador2}</strong><br>Sets Vencidos: ${match.setsP1} - ${match.setsP2} | Último Set: ${match.gamesP1} - ${match.gamesP2}<br><span style="color: #ccff00; font-size: 13px;">Vencedor: ${match.vencedor}</span></div></div>`; }); } document.getElementById('history-screen').style.display = 'block'; } function openRankingScreen() { const history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); const stats = {}; history.forEach(match => { [match.jogador1, match.jogador2].forEach(p => { if (!stats[p]) stats[p] = { pontos: 0, gamesGanhos: 0 }; }); stats[match.vencedor].pontos += 3; stats[match.jogador1].gamesGanhos += parseInt(match.gamesP1 || 0); stats[match.jogador2].gamesGanhos += parseInt(match.gamesP2 || 0); }); const ranking = Object.keys(stats).sort((a, b) => { if (stats[b].pontos !== stats[a].pontos) return stats[b].pontos - stats[a].pontos; return stats[b].gamesGanhos - stats[a].gamesGanhos; }); const rList = document.getElementById('ranking-list'); rList.innerHTML = ranking.length === 0 ? "<div style='color:#666;'>Sem dados para o ranking.</div>" : ""; ranking.forEach((player, idx) => { rList.innerHTML += `<div class="history-card"><div class="history-details" style="display:flex; justify-content:space-between;"><span><strong>${idx + 1}º ${player}</strong></span><span>Pontos: <strong style="color:#ffcc00;">${stats[player].pontos}</strong> | Games Ganhos: ${stats[player].gamesGanhos}</span></div></div>`; }); document.getElementById('ranking-screen').style.display = 'block'; } function exportDailyHistoryToTXT() { const history = JSON.parse(localStorage.getItem('tennis_history') || '[]'); if (history.length === 0) { alert("Não existem partidas salvas no histórico para exportar."); return; } const hoje = new Date().toLocaleDateString('pt-BR'); const jogosDeHoje = history.filter(m => m.data === hoje); if (jogosDeHoje.length === 0) { alert(`Nenhum jogo foi registrado na data de hoje (${hoje}).`); return; } let txtConteudo = `==== RELATÓRIO DIÁRIO DE JOGOS - ${hoje} ====\r\n\r\n`; jogosDeHoje.forEach((match, idx) => { txtConteudo += `Jogo #${idx + 1}\r\n`; txtConteudo += `Horário: ${match.inicio} até ${match.fim} (${match.duracao} min)\r\n`; txtConteudo += `Confronto: ${match.jogador1} vs ${match.jogador2}\r\n`; txtConteudo += `Sets: [${match.jogador1}] ${match.setsP1} x ${match.setsP2} [${match.jogador2}]\r\n`; txtConteudo += `Último Set (Games): ${match.gamesP1} x ${match.gamesP2}\r\n`; txtConteudo += `Vencedor Absoluto: ${match.vencedor}\r\n`; txtConteudo += `--------------------------------------------------\r\n`; }); const dataNomeArquivo = hoje.replace(/\//g, '_'); const nomeDoArquivo = `placar_${dataNomeArquivo}.txt`; const blob = new Blob([txtConteudo], { type: 'text/plain;charset=utf-8;' }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.setAttribute("download", nomeDoArquivo); document.body.appendChild(link); link.click(); document.body.removeChild(link); } function secureProtectedReset() { let savedPassword = localStorage.getItem('app_admin_password'); const APP_VERSION = "PlaCar0.132"; const MASTER_SECRET = "BABULAT_CHAVE_SECRETA_2026"; const SEGUNDA_SENHA_MESTRE = "BBLPRO2026"; function cadastrarNovaSenha() { const novaSenha = prompt("SUPORTE REMOTO:\nDigite a sua NOVA senha de proteção:"); if (!novaSenha || novaSenha.trim() === "") { alert("Operação cancelada. O aplicativo continuará sem senha até que você defina uma."); localStorage.removeItem('app_admin_password'); return; } const confirmacao = prompt("Confirme a nova senha digitando-a novamente:"); if (novaSenha !== confirmacao) { alert("As senhas não coincidem. Processo abortado. Tente o reset novamente."); return; } localStorage.setItem('app_admin_password', novaSenha.trim()); alert("Sua nova senha foi registrada com sucesso! Guarde-a em um local seguro."); } function generateDynamicHash(version, secret) { const hoje = new Date().toISOString().split('T')[0]; let combo = version + "@" + secret + "@" + hoje; let hash = 5381; for (let i = 0; i < combo.length; i++) { hash = ((hash << 5) + hash) + combo.charCodeAt(i); } return Math.abs(hash).toString(36).substring(0, 8).toUpperCase(); } if (!savedPassword) { const novaSenha = prompt("PRIMEIRA EXECUÇÃO: Defina uma senha de segurança para proteger a exclusão dos dados:"); if (!novaSenha || novaSenha.trim() === "") { alert("Operação cancelada. Uma senha válida precisa ser definida."); return; } const confirmacao = prompt("Confirme a nova senha digitando-a novamente:"); if (novaSenha !== confirmacao) { alert("As senhas não coincidem. Processo abortado."); return; } localStorage.setItem('app_admin_password', novaSenha.trim()); alert("Senha de proteção registrada com sucesso! Clique novamente em Reset para prosseguir."); return; } const tentativa = prompt("Digite a senha de administrador para autorizar a limpeza total:\n(Ou digite 'ESQUECI' para redefinir sua senha via suporte)"); if (tentativa === null) return; const senhaDigitada = tentativa.trim(); if (senhaDigitada.toUpperCase() === "ESQUECI") { const hashValidoHoje = generateDynamicHash(APP_VERSION, MASTER_SECRET); const tokenUsuario = prompt(`REDEFINIR SENHA:\nInforme a versão (${APP_VERSION}) ao administrador.\n\nEste código expira hoje.\nDigite o código de liberação recebido:`); if (tokenUsuario === null) return; if (tokenUsuario.trim().toUpperCase() === hashValidoHoje) { localStorage.removeItem('app_admin_password'); alert("Código aceito! A senha antiga foi apagada."); cadastrarNovaSenha(); } else { alert("Código inválido ou expirado! Certifique-se de que a data do seu dispositivo está correta."); } return; } if (senhaDigitada === SEGUNDA_SENHA_MESTRE || senhaDigitada === savedPassword) { const confFinal = confirm("ATENÇÃO: Isso apagará permanentemente todo o histórico de partidas, estatísticas de ranking e resumos. Tem certeza absoluta?"); if (confFinal) { localStorage.removeItem('tennis_history'); localStorage.removeItem('last_match_summary'); updateLastMatchUI(); alert("Todos os dados do aplicativo foram limpos com sucesso!"); } } else { alert("Senha incorreta. Acesso negado."); } } 
+
  if ('serviceWorker' in navigator) {
  window.addEventListener('load', () => {
  navigator.serviceWorker.register('./sw.js')
- .then((registration) => {
- console.log('Service Worker do Babu registrado com sucesso no escopo:', registration.scope);
- })
- .catch((error) => {
- console.log('Falha ao registrar o Service Worker do Babu:', error);
- });
+ .then((registration) => { console.log('Service Worker registrado com sucesso:', registration.scope); })
+ .catch((error) => { console.log('Falha ao registrar o Service Worker:', error); });
  });
  }
  </script> 
