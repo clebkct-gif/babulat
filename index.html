@@ -91,7 +91,7 @@
  @keyframes blinkGreen { 0%, 100% { opacity: 0.3; box-shadow: 0 0 6px rgba(204,255,0,0.3); } 50% { opacity: 0.9; box-shadow: 0 0 25px #ccff00, 0 0 40px #ccff00; } } 
  @keyframes blinkRed { 0%, 100% { opacity: 0.3; box-shadow: 0 0 6px rgba(255,0,0,0.3); } 50% { opacity: 0.9; box-shadow: 0 0 25px #ff0000, 0 0 40px #ff0000; } } 
  @keyframes blinkBlueWhite { 0%, 100% { opacity: 0.3; background-color: #0055ff; box-shadow: 0 0 6px rgba(0,85,255,0.3); } 50% { opacity: 0.9; background-color: #ffffff; box-shadow: 0 0 30px #ffffff, 0 0 50px #0055ff; } } 
- #tennis-ball-indicator { position: absolute; width: 25px; height: 25px; border-radius: 50%; z-index: 5; pointer-events: auto; cursor: pointer; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translate(-50%, -50%); } 
+ #tennis-ball-indicator { position: absolute; width: 31.25px; height: 31.25px; border-radius: 50%; z-index: 5; pointer-events: auto; cursor: pointer; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translate(-50%, -50%); } 
  .state-green { background-color: #ccff00; animation: blinkGreen 1.5s infinite ease-in-out; } 
  .state-red { background-color: #ff0000; animation: blinkRed 0.6s infinite ease-in-out; } 
  .state-blue-white { animation: blinkBlueWhite 0.5s infinite ease-in-out; } 
@@ -195,8 +195,8 @@
  <div class="form-group"> 
  <label for="advantage-rule">V A N T A G E M</label> 
  <select id="advantage-rule"> 
- <option value="advantage" selected>S I M</option> 
- <option value="no-advantage">Sem Vantagem (No-Ad)</option> 
+ <option value="advantage">S I M</option> 
+ <option value="no-advantage" selected>Sem Vantagem (No-Ad)</option> 
  </select> 
  </div> 
  <div class="form-group"> 
